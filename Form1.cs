@@ -210,6 +210,7 @@ namespace PaladinIngester
             _Mixer.ScenesElementGetByPos(XMouse, YMouse, 0, out pElement);
             if (pElement != null)
             {
+                Console.WriteLine("pElement not null");
                 pEditElement = pElement;
                 try
                 {
@@ -303,6 +304,49 @@ namespace PaladinIngester
             isLeftBound = false;
             isTopBound = false;
             //mElementsTree.UpdateTree(true);
+        }
+
+        private void OutputPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            float XMouse = (PointToRelative(e.Location)).X;
+            float YMouse = (PointToRelative(e.Location)).Y;
+            if (pEditElement != null)
+            {
+                RectangleF rcNew = rcOriginal;
+                if (isResizingHor)
+                {
+                    _Mixer.PreviewSetCursor("", eMCursorType.eMCT_SIZEWE);
+
+                    if (isLeftBound)
+                    {
+                        rcNew.X += XMouse - ptOriginal.X;
+                        rcNew.Width -= XMouse - ptOriginal.X;
+                    }
+                    else
+                        rcNew.Width += XMouse - ptOriginal.X;
+
+                }
+                if (isResizingVert)
+                {
+                    _Mixer.PreviewSetCursor("", eMCursorType.eMCT_SIZENS);
+                    if (isTopBound)
+                    {
+                        rcNew.Y += YMouse - ptOriginal.Y;
+                        rcNew.Height -= YMouse - ptOriginal.Y;
+                    }
+                    else
+                        rcNew.Height += YMouse - ptOriginal.Y;
+
+                }
+                else if (isMoving)
+                {
+                    _Mixer.PreviewSetCursor("", eMCursorType.eMCT_SIZEALL);
+                    rcNew.X += XMouse - ptOriginal.X;
+                    rcNew.Y += YMouse - ptOriginal.Y;
+                }
+                pEditElement.ElementAbsolutePosSet(rcNew.X, rcNew.Y, rcNew.Width, rcNew.Height);
+            }
+
         }
     }
 }

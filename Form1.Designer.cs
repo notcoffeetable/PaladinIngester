@@ -42,6 +42,7 @@
             this.OutputPanel.Size = new System.Drawing.Size(617, 424);
             this.OutputPanel.TabIndex = 0;
             this.OutputPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OutputPanel_MouseDown);
+            this.OutputPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OutputPanel_MouseMove);
             this.OutputPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OutputPanel_MouseUp);
             // 
             // cam1
